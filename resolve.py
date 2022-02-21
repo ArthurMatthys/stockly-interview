@@ -5,15 +5,15 @@ def read_file(filename):
     with open(filename, "r") as f:
         content = f.readlines()
     adj = [lines.replace("\n", "").split(",") for lines in content]
-    max_weigth = 0
+    max_weight = 0
     for i, line in enumerate(adj):
         for j, val in enumerate(line):
             if val == "-":
                 adj[i][j] = math.inf
             else:
                 adj[i][j] = int(val)
-                max_weigth += int(val)
-    return adj, max_weigth
+                max_weight += int(val)
+    return adj, max_weight
 
 
 def find_min(adj, lst_opened):
@@ -29,17 +29,17 @@ def find_min(adj, lst_opened):
 
 
 def main(init):
-    adj, max_weigth = read_file("p107_network.txt")
+    adj, max_weight = read_file("p107_network.txt")
     lst_opened = [init]
-    tot_weigth = 0
+    tot_weight = 0
     while len(lst_opened) != len(adj):
-        new_node, weigth = find_min(adj, lst_opened)
-        tot_weigth += weigth
+        new_node, weight = find_min(adj, lst_opened)
+        tot_weight += weight
         for opened in lst_opened:
             adj[opened][new_node] = math.inf
             adj[new_node][opened] = math.inf
         lst_opened.append(new_node)
-    print(max_weigth / 2 - tot_weigth)
+    print(max_weight / 2 - tot_weight)
 
 
 if __name__ == "__main__":
